@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+class Pilha {
+public:
+    int dado;
+    Pilha* ponteiro;
+
+    Pilha() {
+        this->dado = -1;
+        this->ponteiro = NULL;
+    }
+
+    bool vazia() {
+        return this->ponteiro == NULL;
+    }
+
+    Pilha* topo() {
+        return this->ponteiro;
+    }
+
+    void empilhar(int valor) {
+        Pilha* novo = new Pilha();
+        novo->dado = valor;
+        novo->ponteiro = this->ponteiro;
+        this->ponteiro = novo;
+    }
+
+    void desempilhar() {
+        if (this->ponteiro != NULL) {
+            Pilha* temp = this->ponteiro;
+            this->ponteiro = this->ponteiro->ponteiro;
+            delete temp;
+        }
+    }
+
+    void mostrar() {
+        Pilha* temp = this->ponteiro;
+        while (temp != NULL) {
+            cout << temp->dado << " ";
+            temp = temp->ponteiro;
+        }
+        cout << endl;
+    }
+
+    int tamanho() {
+        int count = 0;
+        Pilha* temp = this->ponteiro;
+        while (temp != NULL) {
+            count++;
+            temp = temp->ponteiro;
+        }
+        return count;
+    }
+};
+
+int main() {
+    Pilha pilha;
+
+    for (int i = 1; i <= 7; i++) {
+        pilha.empilhar(i);
+    }
+
+    
+    pilha.mostrar(); 
+
+    
+    pilha.desempilhar();
+
+  
+    pilha.mostrar(); 
+
+    
+    if (pilha.vazia()) {
+        cout << "A pilha está vazia." << endl;
+    } else {
+        cout << "A pilha não está vazia." << endl;
+    }
+
+    
+    Pilha* topo = pilha.topo();
+    if (topo != NULL) {
+        cout << "Elemento no topo: " << topo->dado << endl;
+    } else {
+        cout << "A pilha está vazia." << endl;
+    }
+
+   
+    int tamanho = pilha.tamanho();
+    cout << "Tamanho da pilha: " << tamanho << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+
